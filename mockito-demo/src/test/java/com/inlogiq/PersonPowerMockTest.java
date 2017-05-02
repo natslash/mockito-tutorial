@@ -2,14 +2,19 @@ package com.inlogiq;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import com.inlogiq.IdentityUtilities;
+import com.inlogiq.Person;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ IdentityUtilities.class, Person.class })
@@ -45,7 +50,9 @@ public class PersonPowerMockTest {
 
 		// Optionally verify that the private method was actually called
 		PowerMockito.verifyPrivate(instance).invoke("generateId");
-		verify(instance.getId(), atLeast(1));
+		
+		//Verify that a method is called atelast once
+		Mockito.verify(instance, atLeastOnce()).getId();
 
 	}
 
